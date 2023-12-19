@@ -5,6 +5,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
   width: 100vw;
+  box-sizing: border-box;
 }
 
 .card {
@@ -17,9 +18,37 @@ body {
   background-color: grey;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: center;
+  margin: 2em;
 }
 
 img {
   height: 200px;
   width: 50px;
+}
+
+.beer-info {
+  display: flex;
+  flex-direction: column;
+  width: 40em;
+  height: 60em;
+  align-items: center;
+  justify-content: center;
+  background-color: grey;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
 }

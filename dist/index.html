@@ -8,10 +8,55 @@
   </head>
   <body>
     <button id="random-beer">Hämta random Beer</button>
-    <div class="card" id="card">
+    <div class="card hide" id="card">
       <img src="" alt="" />
       <h1></h1>
       <button>Läs mer</button>
+    </div>
+
+    <div class="search">
+      <form>
+        <label for="search-name">Namn</label>
+        <input id="search-name" type="text" placeholder="namn" />
+        <button id="search">Sök</button>
+      </form>
+    </div>
+
+    <div id="search-result">
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+    <div id="pagination" class="pagination">
+      <a href="#">&laquo;</a>
+
+      <a href="#">&raquo;</a>
+    </div>
+
+    <div id="beer-info" class="beer-info hide">
+      <img src="" alt="" />
+
+      <h1 id="name"></h1>
+      <p>Beskrivning:</p>
+      <p id="description"></p>
+      <p>Alkoholhalt:</p>
+      <p id="abv"></p>
+      <p>Volym:</p>
+      <p id="volume"></p>
+      <p>Passar till:</p>
+      <p id="food-pairing"></p>
+      <p>Tips:</p>
+      <p id="brewers-tips"></p>
+      <button>Stäng</button>
     </div>
     <script src="index.js"></script>
   </body>
