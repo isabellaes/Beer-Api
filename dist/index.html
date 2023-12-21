@@ -7,13 +7,6 @@
     <link rel="stylesheet" href="../style.css" />
   </head>
   <body>
-    <button id="random-beer">Hämta random Beer</button>
-    <div class="card hide" id="card">
-      <img src="" alt="" />
-      <h1></h1>
-      <button>Läs mer</button>
-    </div>
-
     <div class="search">
       <form>
         <label for="search-name">Namn</label>
@@ -22,7 +15,7 @@
       </form>
     </div>
 
-    <div id="search-result">
+    <div id="search-result" class="hide">
       <ul>
         <li></li>
         <li></li>
@@ -36,12 +29,16 @@
         <li></li>
       </ul>
     </div>
+    <p class="hide" id="no-result">Inga resultat hittades</p>
     <div id="pagination" class="pagination">
-      <a href="#">&laquo;</a>
-
-      <a href="#">&raquo;</a>
+      <div id="pagination-numbers"></div>
     </div>
-
+    <button id="random-beer">Hämta random Beer</button>
+    <div class="card hide" id="card">
+      <img src="" alt="" />
+      <h1></h1>
+      <button>Läs mer</button>
+    </div>
     <div id="beer-info" class="beer-info hide">
       <img src="" alt="" />
 

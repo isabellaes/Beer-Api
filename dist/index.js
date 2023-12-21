@@ -27,23 +27,31 @@ function getBeers() {
         }
     });
 }
-getBeers();
 const arrayOfBeers = [];
-console.log(arrayOfBeers);
 const card = document.getElementById("card");
 const div = document.getElementById("beer-info");
 const randomButton = document.querySelector("#random-beer");
+const divsearch = document.getElementById("search-result");
+const ul = divsearch.querySelector("ul");
+const pagination = document.getElementById("pagination-numbers");
+const noresult = document.getElementById("no-result");
+getBeers();
 randomButton.addEventListener("click", () => {
     const randomObject = getRandomBeer();
     showCard(randomObject);
 });
 document.querySelector("#search").addEventListener("click", (e) => {
     e.preventDefault();
-    /*  const result = searchBeer();
-    if (result) {
-      searchResultList(result);
-    } */
-    searchResultList(arrayOfBeers);
+    const result = searchBeer();
+    clearPrevSearchResult();
+    if (result.length > 0) {
+        searchResultList(result);
+    }
+    else {
+        if (noresult.classList.contains("hide")) {
+            noresult.classList.toggle("hide");
+        }
+    }
 });
 function showCard(randomObject) {
     if (card.classList.contains("hide")) {
@@ -65,9 +73,9 @@ function showDetails(beer) {
     if (card.classList.contains("hide") != true) {
         card.classList.toggle("hide");
     }
-    randomButton.classList.toggle("hide");
-    div.classList.toggle("hide");
-    //lägg till info i detaljsidan
+    if (div.classList.contains("hide")) {
+        div.classList.toggle("hide");
+    }
     document.getElementById("name").innerHTML = beer.name;
     document.getElementById("description").innerHTML = beer.description;
     document.getElementById("abv").innerHTML = beer.abv.toString();
@@ -78,8 +86,9 @@ function showDetails(beer) {
         beer.food_pairing.toString();
     document.getElementById("brewers-tips").innerHTML = beer.brewers_tips;
     div.querySelector("button").addEventListener("click", () => {
-        randomButton.classList.toggle("hide");
-        div.classList.toggle("hide");
+        if (div.classList.contains("hide") != true) {
+            div.classList.toggle("hide");
+        }
     });
 }
 function searchBeer() {
@@ -87,30 +96,59 @@ function searchBeer() {
     return arrayOfBeers.filter((beer) => beer.name.toLocaleLowerCase() === searchValue.value);
 }
 function searchResultList(beers) {
-    const div = document.getElementById("search-result");
-    const li = div.querySelectorAll("li");
-    const pagination = document.getElementById("pagination");
-    const number = Math.ceil(beers.length / 10);
-    console.log(number);
-    let indexBeer = 0;
-    for (let index1 = 0; index1 <= number - 1; index1++) {
-        const element = document.createElement("a");
-        element.innerHTML = (index1 + 1).toString();
-        console.log(index1);
-        element.addEventListener("click", () => {
-            for (let index = 0; index < 10; index++) {
-                if (beers[indexBeer]) {
-                    li[index].innerHTML = beers[indexBeer].name;
-                    li[index].addEventListener("click", () => {
-                        showDetails(beers[index]);
-                    });
-                    indexBeer++;
-                }
-                else {
-                    li[index].innerHTML = "";
-                }
+    list10SearchResult(0, beers);
+    if (beers.length > 10) {
+        const numberOfpages = Math.ceil(beers.length / 10);
+        for (let index = 0; index < numberOfpages; index++) {
+            const element = document.createElement("p");
+            element.innerHTML = (index + 1).toString();
+            element.addEventListener("click", () => {
+                list10SearchResult(index * 10, beers);
+            });
+            pagination.appendChild(element);
+        }
+    }
+}
+function list10SearchResult(indexNum, beers) {
+    const li = ul.querySelectorAll("li");
+    li.forEach((li) => {
+        if (beers[indexNum]) {
+            if (li.classList.contains("hide")) {
+                li.classList.toggle("hide");
             }
+            li.innerHTML = beers[indexNum].name;
+            li.addEventListener("click", () => {
+                let beer = beers.find((b) => b.name === li.innerHTML);
+                showDetails(beer);
+            });
+        }
+        else {
+            li.classList.add("hide");
+            li.innerHTML = "";
+        }
+        indexNum++;
+    });
+    if (divsearch.classList.contains("hide")) {
+        divsearch.classList.toggle("hide");
+    }
+}
+function clearPrevSearchResult() {
+    if (pagination.childNodes.length) {
+        pagination.childNodes.forEach((child) => {
+            child.remove();
         });
-        pagination.appendChild(element);
+        pagination.childNodes.forEach((child) => {
+            child.remove();
+        });
+    }
+    const li = ul.querySelectorAll("li");
+    li.forEach((li) => {
+        if (li.classList.contains("hide") != true) {
+            li.classList.add("hide");
+            li.innerHTML = "";
+        }
+    });
+    if (noresult.classList.contains("hide") != true) {
+        noresult.classList.toggle("hide");
     }
 }
